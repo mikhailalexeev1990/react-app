@@ -7,8 +7,8 @@ services:
         volumes:
             - ./:/app
         expose:
-            - "3000"
+            - "3003"
         command: "npm start"
         ports:
-            - "3003:3000"
+            - "3003:3003"
 
