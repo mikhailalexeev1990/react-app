@@ -1,0 +1,118 @@
+@keyframes spinner-double-ring-box {
+  0% {
+    transform: rotate(0)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+.spinner-double-ring-box div {
+  box-sizing: border-box !important
+}
+
+.spinner-double-ring-box > div {
+  position: absolute;
+  width: 68px;
+  height: 68px;
+  top: 16px;
+  left: 16px;
+  border-radius: 50%;
+  border: 8px solid #000;
+  border-color: #292664 transparent #292664 transparent;
+  animation: spinner-double-ring-box 1.5384615384615383s linear infinite;
+}
+
+.spinner-double-ring-box > div:nth-child(2), .spinner-double-ring-box > div:nth-child(4) {
+  width: 50px;
+  height: 50px;
+  top: 25px;
+  left: 25px;
+  animation: spinner-double-ring-box 1.5384615384615383s linear infinite reverse;
+}
+
+.spinner-double-ring-box > div:nth-child(2) {
+  border-color: transparent #667395 transparent #667395
+}
+
+.spinner-double-ring-box > div:nth-child(3) {
+  border-color: transparent
+}
+
+.spinner-double-ring-box > div:nth-child(3) div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+}
+
+.spinner-double-ring-box > div:nth-child(3) div:before, .spinner-double-ring-box > div:nth-child(3) div:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: -8px;
+  left: 22px;
+  background: #292664;
+  border-radius: 50%;
+  box-shadow: 0 60px 0 0 #292664;
+}
+
+.spinner-double-ring-box > div:nth-child(3) div:after {
+  left: -8px;
+  top: 22px;
+  box-shadow: 60px 0 0 0 #292664;
+}
+
+.spinner-double-ring-box > div:nth-child(4) {
+  border-color: transparent;
+}
+
+.spinner-double-ring-box > div:nth-child(4) div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+}
+
+.spinner-double-ring-box > div:nth-child(4) div:before, .spinner-double-ring-box > div:nth-child(4) div:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: -8px;
+  left: 13px;
+  background: #667395;
+  border-radius: 50%;
+  box-shadow: 0 42px 0 0 #667395;
+}
+
+.spinner-double-ring-box > div:nth-child(4) div:after {
+  left: -8px;
+  top: 13px;
+  box-shadow: 42px 0 0 0 #667395;
+}
+
+.spinner-double-ring {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+  margin: 0 auto;
+}
+
+.spinner-double-ring-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+
+.spinner-double-ring-box div {
+  box-sizing: content-box;
+}
