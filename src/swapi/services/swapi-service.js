@@ -58,8 +58,8 @@ class SwapiService {
             id: this.#extractId(person),
             name: person.name,
             gender: person.gender,
-            birthYear: person.birthYear,
-            eyeColor: person.eyeColor,
+            birthYear: person.birth_year,
+            eyeColor: person.eye_color,
         }
     }
 
@@ -79,11 +79,11 @@ class SwapiService {
             name: starship.name,
             model: starship.model,
             manufacturer: starship.manufacturer,
-            costItCredits: starship.costItCredits,
+            costItCredits: starship.cost_it_credits,
             length: starship.length,
             crew: starship.crew,
             passengers: starship.passengers,
-            cargoCapacity: starship.cargoCapacity,
+            cargoCapacity: starship.cargo_capacity,
         }
     }
 }
