@@ -13,13 +13,11 @@ export default class PersonDetails extends Component {
     }
 
     componentDidMount() {
-        console.log(1);
         this.updatePerson();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.personId !== this.props.personId) {
-            console.log(4);
             this.setState({loading: true});
             this.updatePerson()
         }
@@ -29,12 +27,10 @@ export default class PersonDetails extends Component {
         const {personId} = this.props;
 
         if (!personId) {
-            console.log(2);
             return;
         }
 
         this.swapiService.getPerson(personId).then((person) => {
-            console.log(3);
             this.setState({person, loading: false});
         });
     }
