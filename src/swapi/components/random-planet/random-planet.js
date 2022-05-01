@@ -3,6 +3,8 @@ import './random-planet.css';
 import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
+import ThrowError from "../throw-error";
+import ErrorBoundary from "../error-boundary";
 
 export default class RandomPlanet extends Component {
 
@@ -66,7 +68,7 @@ const PlanetView = ({planet}) => {
     const {id, name, population, rotationPeriod, diameter} = planet;
 
     return (
-        <React.Fragment>
+        <ErrorBoundary>
             <img className="planet-image"
                  src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />
             <div>
@@ -85,8 +87,9 @@ const PlanetView = ({planet}) => {
                         <span>{diameter}</span>
                     </li>
                 </ul>
+                <ThrowError/>
             </div>
-        </React.Fragment>
+        </ErrorBoundary>
     );
 }
 

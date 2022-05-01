@@ -1,7 +1,7 @@
 class SwapiService {
     #apiBase = 'https://swapi.dev/api';
 
-    async getResource(url) {
+    getResource = async (url) => {
         const res = await fetch(`${this.#apiBase}${url}`);
 
         if (!res.ok) {
@@ -11,46 +11,45 @@ class SwapiService {
         return await res.json();
     }
 
-    async getAllPeople() {
+    getAllPeople = async () => {
         const res = await this.getResource('/people/');
 
         return res.results.map((person) => this.#transformPerson(person));
     }
 
-    async getPerson(id) {
+    getPerson = async (id) => {
         const person = await this.getResource(`/people/${id}/`);
 
         return this.#transformPerson(person);
 
     }
 
-    async getAllPlanets() {
+    getAllPlanets = async () => {
         const res = await this.getResource('/planets/');
 
         return res.results.map((planet) => this.#transformPlanet(planet));
     }
 
-    async getPlanet(id) {
+    getPlanet = async (id) => {
         const planet = await this.getResource(`/planets/${id}/`);
 
         return this.#transformPlanet(planet);
     }
 
-    async getAllStarships() {
+    getAllStarships = async () => {
         const res = await this.getResource('/starships/');
 
         return res.results.map((starship) => this.#transformStarship(starship));
     }
 
-    async getStarship(id) {
+    getStarship = async (id) => {
         const starship = await this.getResource(`/starships/${id}/`);
 
         return this.#transformStarship(starship);
     }
 
     #extractId(item) {
-        const idRegex = /\/(\d*)\/$/;
-        return item.url.match(idRegex)[1];
+        return item.url.match(/\/(\d*)\/$/)[1];
     }
 
     #transformPerson(person) {
