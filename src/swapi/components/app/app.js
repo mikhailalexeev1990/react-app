@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import Header from "../header";
-import RandomPlanet from "../random-planet";
 import ErrorIndicator from "../error-indicator";
-import PeoplePage from "../people-page";
+import Row from "../row";
+import ErrorBoundary from "../error-boundary";
+import {PersonList, PlanetList, StarshipList, SpeciesList} from "../sw-components";
+import {PersonDetails, PlanetDetails, StarshipDetails, SpeciesDetails} from "../sw-components";
 
 export default class SwapiApp extends Component {
-
     state = {
         hasError: false,
+
     }
 
     componentDidCatch(error, errorInfo) {
@@ -20,15 +22,29 @@ export default class SwapiApp extends Component {
         }
 
         return (
-            <div>
+            <ErrorBoundary>
                 <Header/>
-                <RandomPlanet/>
-
-                <PeoplePage/>
-                <PeoplePage/>
-                <PeoplePage/>
-                <PeoplePage/>
-            </div>
+                <Row
+                    left={
+                        <PersonList>
+                            {({name}) => <span>{name}</span>}
+                        </PersonList>
+                    }
+                    right={
+                        <PersonDetails itemId={1}/>
+                    }
+                />
+                <Row
+                    left={
+                        <PlanetList>
+                            {({name}) => <span>{name}</span>}
+                        </PlanetList>
+                    }
+                    right={
+                        <PlanetDetails itemId={4}/>
+                    }
+                />
+            </ErrorBoundary>
         );
     }
 }

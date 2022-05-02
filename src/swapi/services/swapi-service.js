@@ -1,5 +1,6 @@
-class SwapiService {
+export default class SwapiService {
     #apiBase = 'https://swapi.dev/api';
+    #imageBase = 'https://starwars-visualguide.com/assets/img';
 
     getResource = async (url) => {
         const res = await fetch(`${this.#apiBase}${url}`);
@@ -48,6 +49,34 @@ class SwapiService {
         return this.#transformStarship(starship);
     }
 
+    getAllSpecies = async () => {
+        const res = await this.getResource('/species/');
+
+        return res.results.map((starship) => this.#transformSpecies(starship));
+    }
+
+    getSpecies = async (id) => {
+        const species = await this.getResource(`/species/${id}/`);
+
+        return this.#transformSpecies(species);
+    }
+
+    getPersonImage = ({id}) => {
+        return `${this.#imageBase}/characters/${id}.jpg`;
+    }
+
+    getStarshipImage = ({id}) => {
+        return `${this.#imageBase}/starships/${id}.jpg`;
+    }
+
+    getPlanetImage = ({id}) => {
+        return `${this.#imageBase}/planets/${id}.jpg`;
+    }
+
+    getSpeciesImage = ({id}) => {
+        return `${this.#imageBase}/species/${id}.jpg`;
+    }
+
     #extractId(item) {
         return item.url.match(/\/(\d*)\/$/)[1];
     }
@@ -85,6 +114,20 @@ class SwapiService {
             cargoCapacity: starship.cargo_capacity,
         }
     }
-}
 
-export default SwapiService;
+    #transformSpecies(species) {
+        return {
+            id: this.#extractId(species),
+            name: species.name,
+            classification: species.classification,
+            designation: species.designation,
+            averageHeight: species.average_height,
+            skinColors: species.skin_colors,
+            hairColors: species.hair_colors,
+            eyeColors: species.eye_colors,
+            averageLifespan: species.average_lifespan,
+            homeworld: species.homeworld,
+            language: species.language,
+        }
+    }
+}
