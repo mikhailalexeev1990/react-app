@@ -24,26 +24,8 @@ export default class SwapiApp extends Component {
         return (
             <ErrorBoundary>
                 <Header/>
-                <Row
-                    left={
-                        <PersonList>
-                            {({name}) => <span>{name}</span>}
-                        </PersonList>
-                    }
-                    right={
-                        <PersonDetails itemId={1}/>
-                    }
-                />
-                <Row
-                    left={
-                        <PlanetList>
-                            {({name}) => <span>{name}</span>}
-                        </PlanetList>
-                    }
-                    right={
-                        <PlanetDetails itemId={4}/>
-                    }
-                />
+                <Row left={<PersonList/>} right={<PersonDetails itemId={1}/>}/>
+                <Row left={<PlanetList/>} right={<PlanetDetails itemId={4}/>}/>
             </ErrorBoundary>
         );
     }

@@ -10,7 +10,7 @@ import {
     PlanetList,
     StarshipList,
     SpeciesList
-} from './item-list';
+} from './item-lists';
 
 export {
     PersonDetails,
