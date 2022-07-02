@@ -25,7 +25,6 @@ export default class PeoplePage extends Component {
         const itemList = (
             <ErrorBoundary>
                 <ItemList
-
                     onItemSelected={this.onPersonSelected}
                     getData={this.swapiService.getAllPeople}
                 >

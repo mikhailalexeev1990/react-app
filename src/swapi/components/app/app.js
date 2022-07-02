@@ -5,11 +5,16 @@ import Row from "../row";
 import ErrorBoundary from "../error-boundary";
 import {PersonList, PlanetList, StarshipList, SpeciesList} from "../sw-components";
 import {PersonDetails, PlanetDetails, StarshipDetails, SpeciesDetails} from "../sw-components";
+import {SwapiServiceProvider} from "../swapi-service-context";
+import SwapiService from "../../services/swapi-service";
 
 export default class SwapiApp extends Component {
+    swapiService = new SwapiService();
+
     state = {
         hasError: false,
-
+        personId: 1,
+        planetId: 4,
     }
 
     componentDidCatch(error, errorInfo) {
@@ -23,9 +28,15 @@ export default class SwapiApp extends Component {
 
         return (
             <ErrorBoundary>
-                <Header/>
-                <Row left={<PersonList/>} right={<PersonDetails itemId={1}/>}/>
-                <Row left={<PlanetList/>} right={<PlanetDetails itemId={4}/>}/>
+                <SwapiServiceProvider value={this.swapiService}>
+                    <Header/>
+                    <Row left={<PersonList onItemSelected={(personId) => this.setState({personId})}/>}
+                         right={<PersonDetails itemId={this.state.personId}/>}
+                    />
+                    <Row left={<PlanetList onItemSelected={(planetId) => this.setState({planetId})}/>}
+                         right={<PlanetDetails itemId={this.state.planetId}/>}
+                    />
+                </SwapiServiceProvider>
             </ErrorBoundary>
         );
     }
