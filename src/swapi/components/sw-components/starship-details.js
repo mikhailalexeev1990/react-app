@@ -1,23 +1,13 @@
 import ItemDetails, {Record} from "../item-details";
 import React from "react";
-import {SwapiServiceConsumer} from "../swapi-service-context";
+import {withSwapiService} from "../hoc-helpers";
 
-const StarshipDetails = () => {
+const StarshipDetails = ({itemId, swapiService}) => {
     return (
         <ItemDetails>
-            <SwapiServiceConsumer>
-                {
-                    () => {
-                        return (
-                            <div>
-                                empty
-                            </div>
-                        )
-                    }
-                }
-            </SwapiServiceConsumer>
+            empty
         </ItemDetails>
     );
 };
 
-export default StarshipDetails;
+export default withSwapiService(StarshipDetails);

@@ -1,13 +1,10 @@
 import ItemDetails, {Record} from "../item-details";
 import React from "react";
-import {SwapiServiceConsumer} from "../swapi-service-context";
+import {withSwapiService} from "../hoc-helpers";
 
-const SpeciesDetails = ({itemId}) => {
+const SpeciesDetails = ({itemId, swapiService}) => {
+    const {getSpecies, getSpeciesImage} = swapiService;
     return (
-        <SwapiServiceConsumer>
-            {
-                ({getSpecies, getSpeciesImage}) => {
-                    return (
                         <ItemDetails
                             itemId={itemId}
                             getData={getSpecies}
@@ -16,11 +13,7 @@ const SpeciesDetails = ({itemId}) => {
                             <Record field="name" label="Name"/>
                             <Record field="eyeColors" label="Eye Colors"/>
                         </ItemDetails>
-                    )
-                }
-            }
-        </SwapiServiceConsumer>
     );
 };
 
-export default SpeciesDetails;
+export default withSwapiService(SpeciesDetails);
