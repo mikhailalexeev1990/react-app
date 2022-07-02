@@ -1,4 +1,4 @@
-import ItemDetails, {Record} from "../item-details";
+import ItemDetails from "../item-details";
 import React from "react";
 import {withSwapiService} from "../hoc-helpers";
 

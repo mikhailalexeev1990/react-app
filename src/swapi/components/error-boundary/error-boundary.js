@@ -4,18 +4,21 @@ import ErrorIndicator from "../error-indicator";
 
 export default class ErrorBoundary extends Component {
     state = {
-        hasError: false,
+        error: false,
     }
 
     componentDidCatch(error, errorInfo) {
-        this.setState({hasError: true})
+        this.setState({error: true})
     }
 
     render() {
-        if (this.state.hasError) {
+        const {error} = this.state;
+        const {children} = this.props;
+
+        if (error) {
             return <ErrorIndicator/>;
         }
 
-        return this.props.children;
+        return children;
     }
 }

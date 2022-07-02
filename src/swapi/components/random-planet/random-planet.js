@@ -14,6 +14,7 @@ export default class RandomPlanet extends Component {
     state = {
         planet: {},
         loading: true,
+        error: false,
     }
 
     componentDidMount() {
@@ -33,7 +34,7 @@ export default class RandomPlanet extends Component {
         });
     }
 
-    onError = (err) => {
+    onError = () => {
         this.setState({
             error: true,
             loading: false,
@@ -42,14 +43,12 @@ export default class RandomPlanet extends Component {
 
     updatePlanet = () => {
         const id = Math.floor(Math.random() * 25) + 3;
-
         this.swapiService.getPlanet(id).then(this.onPlanetLoaded).catch(this.onError)
     }
 
     render() {
         const {planet, loading, error} = this.state;
         const hasData = !(loading || error);
-
         const errorMessage = error ? <ErrorIndicator/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = hasData ? <PlanetView planet={planet}/> : null;
@@ -70,7 +69,9 @@ const PlanetView = ({planet}) => {
     return (
         <ErrorBoundary>
             <img className="planet-image"
-                 src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />
+                 src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+                 alt={''}
+            />
             <div>
                 <h4>{name}</h4>
                 <ul className="list-group list-group-flush">

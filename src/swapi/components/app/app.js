@@ -4,33 +4,32 @@ import ErrorIndicator from "../error-indicator";
 import ErrorBoundary from "../error-boundary";
 import {SwapiServiceProvider} from "../swapi-service-context";
 import SwapiService from "../../services/swapi-service";
-
-import {PersonPage, PlanetPage, SpeciesPage, StarshipPage} from "../pages";
+import RandomPlanet from "../random-planet";
+import {PersonPage, PlanetPage, SpeciesPage} from "../pages";
 
 export default class SwapiApp extends Component {
 
     state = {
-        hasError: false,
+        error: false,
         swapiService: new SwapiService(),
-        personId: 1,
-        planetId: 4,
     }
 
     componentDidCatch(error, errorInfo) {
-        this.setState({hasError: true})
+        this.setState({error: true})
     }
 
     render() {
-        if (this.state.hasError) {
+        const {error, swapiService} = this.state;
+
+        if (error) {
             return <ErrorIndicator/>
         }
-
-        const {swapiService} = this.state;
 
         return (
             <ErrorBoundary>
                 <SwapiServiceProvider value={swapiService}>
                     <Header/>
+                    <RandomPlanet/>
                     <PersonPage/>
                     <PlanetPage/>
                     <SpeciesPage/>
