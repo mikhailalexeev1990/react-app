@@ -1,10 +1,20 @@
 import {PersonDetails, PersonList} from "../sw-components";
 import Row from "../row";
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 
 export default class PersonPage extends Component {
+
+    static defaultProps = {
+        selectedItem: 5
+    }
+
+    static propTypes = {
+        selectedItem: PropTypes.number
+    }
+
     state = {
-        selectedItem: 1
+        selectedItem: this.props.selectedItem
     }
 
     onItemSelected = (selectedItem) => {

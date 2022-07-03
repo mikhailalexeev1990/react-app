@@ -1,10 +1,20 @@
 import {PlanetDetails, PlanetList} from "../sw-components";
 import Row from "../row";
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 
 export default class PlanetPage extends Component {
-    state = {
+
+    static defaultProps = {
         selectedItem: 3
+    }
+
+    static propTypes = {
+        selectedItem: PropTypes.number
+    }
+
+    state = {
+        selectedItem: this.props.selectedItem
     }
 
     onItemSelected = (selectedItem) => {

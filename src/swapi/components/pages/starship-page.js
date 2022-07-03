@@ -1,10 +1,20 @@
 import {StarshipDetails, StarshipList} from "../sw-components";
 import Row from "../row";
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 
 export default class StarshipPage extends Component {
-    state = {
+
+    static defaultProps = {
         selectedItem: 1
+    }
+
+    static propTypes = {
+        selectedItem: PropTypes.number
+    }
+
+    state = {
+        selectedItem: this.props.selectedItem
     }
 
     onItemSelected = (selectedItem) => {

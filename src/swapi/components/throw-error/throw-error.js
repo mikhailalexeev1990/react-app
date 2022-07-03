@@ -7,11 +7,13 @@ export default class ThrowError extends Component {
 
     render() {
         if (this.state.error) {
-            throw 'error';
+            throw new Error('Something was wrong!');
         }
         return (
             <React.Fragment>
-                <button className="btn btn-danger" onClick={() => {this.setState({error: true})}}>
+                <button className="btn btn-danger" onClick={() => {
+                    this.setState({error: true})
+                }}>
                     Throw error
                 </button>
             </React.Fragment>

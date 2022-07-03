@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
-import ErrorBoundary from "../error-boundary";
 
 const withData = (View) => {
     return class extends Component {
@@ -11,10 +10,14 @@ const withData = (View) => {
             error: false,
         };
 
+        componentDidUpdate(prevProps) {
+            if (this.props.getData !== prevProps.getData) {
+                this.update()
+            }
+        }
+
         componentDidMount() {
-            this.props.getData().then((data) => {
-                this.setState({data})
-            });
+            this.update();
         }
 
         update() {
@@ -23,7 +26,9 @@ const withData = (View) => {
                 error: false,
             });
 
-            this.props.getData()
+            const {getData} = this.props;
+
+            getData()
                 .then((data) => {
                     this.setState({
                         data,

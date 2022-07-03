@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import './item-details.css';
 import Spinner from "../spinner";
 import ThrowError from "../throw-error";
+import ErrorIndicator from "../error-indicator";
+import ErrorBoundary from "../error-boundary";
 
 export const Record = ({item, field, label}) => {
     return (
@@ -18,69 +20,87 @@ export default class ItemDetails extends Component {
         item: null,
         image: null,
         loading: false,
+        error: false,
     }
 
     componentDidMount() {
-        this.updateItem();
+        this.update();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.itemId !== this.props.itemId) {
             this.setState({loading: true});
-            this.updateItem()
+            this.update()
         }
     }
 
-    updateItem() {
+    update() {
         const {itemId, getData, getImageUrl} = this.props;
 
         if (!itemId) {
             return;
         }
 
-        getData(itemId).then((item) => {
-            this.setState({
-                item,
-                image: getImageUrl(item),
-                loading: false,
-            });
+        this.setState({
+            loading: true,
+            error: false,
         });
+
+        getData(itemId)
+            .then((item) => {
+                this.setState({
+                    item,
+                    image: getImageUrl(item),
+                    loading: false,
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    error: true,
+                    loading: false,
+                });
+            });
+        ;
     }
 
     render() {
-        const {item, image, loading} = this.state;
-
-        if (!item) {
-            return <span>Select a item from the list</span>;
-        }
+        const {item, image, loading, error} = this.state;
 
         if (loading) {
             return <Spinner/>;
         }
 
+        if (error) {
+            return <ErrorIndicator/>
+        }
+
+        if (!item) {
+            return <span>Select a item from the list</span>;
+        }
+
         const {name} = item;
 
         return (
-            <div className="item-details card">
-                <img className="item-image"
-                     src={image}/>
+            <ErrorBoundary>
+                <div className="item-details card">
+                    <img className="item-image" alt={''} src={image}/>
+                    <div className="card-body">
+                        <h4>{name}</h4>
+                        <ul className="list-group list-group-flush">
+                            {
+                                React.Children.map(this.props.children, (child) => {
+                                    const type = (<Record/>).type;
 
-                <div className="card-body">
-                    <h4>{name}</h4>
-                    <ul className="list-group list-group-flush">
-                        {
-                            React.Children.map(this.props.children, (child) => {
-                                const type = (<Record />).type;
-
-                                if (child.type === type) {
-                                    return React.cloneElement(child, {item});
-                                }
-                            })
-                        }
-                    </ul>
-                    <ThrowError/>
+                                    if (child.type === type) {
+                                        return React.cloneElement(child, {item});
+                                    }
+                                })
+                            }
+                        </ul>
+                        <ThrowError/>
+                    </div>
                 </div>
-            </div>
+            </ErrorBoundary>
         )
     }
 }

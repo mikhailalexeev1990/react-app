@@ -112,7 +112,7 @@ export default class TodoListApp extends Component {
         const visibleItems = this.filter(this.search(todoData, searchText), filter);
         const countDone = todoData.filter((el) => el.done).length;
         const countTodoData = todoData.length - countDone;
-        const countImportant = todoData.filter((el) => el.important).length;
+        // const countImportant = todoData.filter((el) => el.important).length;
 
         return (
             <div className="todo-app">
